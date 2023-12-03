@@ -1,0 +1,236 @@
+#!/bin/bash
+
+print_banner() {
+    echo " ## ##    ## ##   ##   ##  ### ##   ####       ####     ##     ###  ##   ## ##   ### ###"
+    echo "##   ##  ##   ##   ## ##    ##  ##   ##         ##       ##      ## ##  ##   ##   ##  ##"
+    echo "##       ##   ##  # ### #   ##  ##   ##         ##     ## ##    # ## #  ##        ##     "
+    echo "##       ##   ##  ## # ##   ##  ##   ##         ##     ##  ##   ## ##   ##        ## ##  "
+    echo "##       ##   ##  ##   ##   ## ##    ##         ##     ## ###   ##  ##  ##        ##     "
+    echo "##   ##  ##   ##  ##   ##   ##       ##  ##     ##     ##  ##   ##  ##  ##   ##   ##  ##"
+    echo " ## ##    ## ##   ##   ##  ####     ### ###    ####   ###  ##  ###  ##   ## ##   ### ###"
+
+    echo "                                             .. ....                                    "
+    echo "              .. .... .. .. ..           ..          .  -                                 "
+    echo "      .. . .. .. .... .. .. .... .. .. ....          .  -                                 "
+    echo "  .:.                                 .                   ..                              "
+    echo ".: ..                                  :          .... ..  -                              "
+    echo ":.                                      ...               :                               "
+    echo "-     :    :  ..  .        .: ..            :          ..  -                              "
+    echo "-.     :   .. .. ..         .:               : ..      .. .:                              "
+    echo "   :                   .    .. .:                ..       ..                              "
+    echo "   .:                 .:     - .:.....            :.   ..  -                              "
+    echo "    .                 .     -  .  .                .   .  .                               "
+    echo "      - .:          :        -  - ....              ..  -                                 "
+    echo "       : .... .. ..:        .. . ..                  ...:                                 "
+    echo "        .                 : .: .: :.                      :                               "
+    echo "         : .. .. .  . .. :  .: ...:... ..   ..            .:                              "
+    echo "          .   .                ..                          .                              "
+    echo "         :    :             .   -..... ..   ..               :                            "
+    echo "        .      :       .     . .                              .                           "
+    echo "      .    .   ..: ..  : .  . .                                :                          "
+    echo "      .  .  .  . ....  :  .  . .  .. .                         .. ..                      "
+    echo "      ...  .  .        .      .   .                                                      "
+    echo "      .  : ..  :      :  .  :  :  .                                  .  ....              "
+    echo "      .   .   ..       .  .  .  ... ..                                .      .. .         "
+    echo "        .. -..           :  . :.  -    ....  .                       .  . .  .  : ..      "
+    echo "         :..:             :  . :. :    ....  . .. .  . .. ..          .  . .  .  : ..     "
+    echo "                           .  . :.:              .     ..      .  .      . ...   ..   .   "
+    echo "                            : ::. :               :     -    :  :  . .   . .. .  : :  ..  "
+    echo "                             .   ..                ... ..     . ..    . ..    . .  .. : . "
+    echo "                                                             ..  ..   : - :.  .  :  :  : -"
+    echo "                                                            .:  .  . .. .  :. . .. .  . .:"
+    echo "                                                             :  .. :  : :    :  .:: :: ..:"
+    echo "                                                            ..  :. : .: -     : --:.:::. -"
+    echo "                                                             .  .       :               . "
+    echo "                                                               -  -:.:-  :                "
+    echo "                                                               .. .. .. :.                "
+}
+
+print_banner
+
+
+
+
+
+
+
+###########################################################################################
+# This script checks to see if you have the telnet package installed on your system.
+# If the script finds telnet installed it will prompt you with the option to remove it.
+###########################################################################################
+
+
+checktelnet=$(dpkg -l | grep telnetd)
+# Runs a check to see if telnet package is installed on the system
+
+if [[ "$checktelnet" == *telnetd* ]]; then
+    # if telnet is found in the checktelnet variable it will then tell the script to echo out that the system is not compliant.
+
+    echo "System has telnet installed, which is not compliant."
+    read -p "Would you like to remove the telnet package from the system? (y/n): " confirm
+   # The user is then prompted with the option to remove telnet off the system or to keep it.
+
+
+
+    if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
+
+        sudo apt-get purge telnetd
+        echo "Telnet package has been removed."
+    else
+        echo "Telnet package was not removed."
+    fi
+# If the user wishes to remove telnet sudo apt-get purge telnetd will remove telnet and all of it configuration files aswell from the system and echo out to the user that it has been removed."
+# if the user chooses not to remove it they recieve an echo statement that says telned was not removed.
+
+else
+    # Tell the user they are compliant
+    echo "System does not have telnet package installed.		GOOD "
+fi
+# if it is found that the checktelnet variable from above does not find telnet installed on your system the script will echo out that your system doe not have tel net installed.
+
+
+
+############################################################################################
+# This scipt checks to see if you have the rsh-server package installed on your system.
+# If the script finds rsh-server installed it will prompt you with the option to remove it.
+############################################################################################
+
+
+checkrsh=$(dpkg -l | grep rsh-server)
+# runs a check to see if rsh-server package is installed on the system and stores the out put of the check as variable named checkrsh
+
+
+if [[ "$checkrsh" == *rsh-server* ]]; then
+    # if rsh-server is found in the checkrsh variable it will then tell the script to echo out that the system is not compliant.
+
+    echo "System has rsh-server installed, which is not compliant."
+    read -p "Would you like to remove the rsh-server package from the system? (y/n): " confirm
+    # The user is then prompted with the option to remove telnet off the system or to keep it.
+    if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
+        sudo apt-get purge rsh-server
+        echo "rsh-server package has been removed."
+    else
+        echo "rsh-server package was not removed."
+    fi
+# If the user wishes to remove rsh-server sudo apt-get purge rsh-server will remove rsh-server and all of it configuration files aswell from the system and echo out to the user that it has been remo>
+# if the user chooses not to remove rsh-server they recieve an echo statement that says rsh-server was not removed.
+
+else
+    echo "System does not have rsh-server package installed.		GOOD"
+fi
+
+# if it is found that the checkrsh variable from above does not find rsh-server installed on your system the script will echo out that your system does not have rsh-server installed.
+
+
+
+######################################################################################################################################
+# This script checks to see if any users on the linux system have blank passwords.
+# If it is found that a user has a blank password the script will give you options on what you can do to remidiate this vulnerabilty.
+# One option you are prompted with is to lock a certain user account with the blank password.
+# The second option you are given is to perform a password reset on a user account with a blank password.
+######################################################################################################################################
+
+
+checkblank=$(sudo awk -F: '!$2 {print $1}' /etc/shadow)
+# This checks to see if you have any users with blank passwords on your system and sotres the output of the check in the variable checkblank.
+
+if [ -n "$checkblank" ]; then
+    echo "System has accounts with blank passwords, which is not compliant."
+    echo "You have two options: you can choose to lock accounts with blank passwords by pressing 1 or you can choose to perform password resets on users with blank passwords by pressing 2"
+    read -p "Please select 1 or 2: " nums
+# Checks to see if there is any output within the checkblank variable and if there is any output found it echos information out and prompts you with two options.
+
+    if [ "$nums" == "1" ]; then
+        read -p "Which user would you like to lock? " lockedusr
+        sudo passwd -l "$lockedusr"
+        echo "Specified user account is now locked"
+# If you choose option 1 the script will then prompt you on which user account you want to lock. Once you type in that users account it will then lock that users account.
+
+
+    elif [ "$nums" == "2" ]; then
+        read -p "Which user would you like to perform a password reset on? " usrps
+        sudo passwd "$usrps"
+        echo "Password has been reset for specified user"
+# if you choose option 2 the script will prompt you on which user account you want to perform a password reset on. Once you type in that users account it will then allow you to specify a new password fo>
+
+    else
+        echo "Invalid option selected. Your system still is not safe from having blank passwords!"
+    fi
+# if you select an invalid option such as a number above or less than 1 or 2 the script will say that you have selected an invalid option.
+
+else
+    echo "Your system does not have any users with blank passwords.		GOOD"
+fi
+# If checkblank variable output nothing that means you have no users with blank passwords and the script will notify you of it.
+
+
+############################################################################
+# This script checks to see if you have session lock enabled on your system.
+# If the script finds that session lock is disabled it will prompt you asking if you want to enable it.
+####################################################################
+
+
+checkiflock=$(sudo gsettings get org.gnome.desktop.screensaver lock-enabled)
+# runs a check to see if session lock is set to enabled or not.
+
+
+if [[ "$checkiflock" == *false* ]]; then
+# If is is found that in the checkiflock variable that session lock is disabled it will then the script to echo that your system is not compliant.
+        echo "Your system does not have session lock enabled, this is not compliant."
+        read -p "Would you like to enable session lock? (y/n): " yes
+# the user is then prompted with the option of enabling session lock on their system or to just leave it turned off.
+
+        if [[ $yes == [yY] || $yes == [yY][eE[sS] ]]; then
+                sudo gsettings set org.gnome.desktop.screensaver lock-enabled true
+                echo "session lock has been switched from false to true."
+        else
+                echo "session lock is still disabled and is false."
+        fi
+# If the user wishes to turn session lock on "sudo gsettings set org.gnome.desktop.screensaver lock-enabled true' will enable session lock on the system.
+# if the user chooses not to enable session lock on the system they will recieve an echo statement that tells them that session lock is still disabled.
+
+else
+        echo "System has session lock enabled to true.		GOOD"
+fi
+# If it is found that the checkiflock variable from above finds that session lock has already been enabled an echo statement will say that session lock is enabled.
+
+
+#######################################################################
+# This script checks to see what your systems mimumum password length requirement is.
+# If it finds that it is anything less than 15 characters it prompts you with the option to change it.
+# You will be prompted with the option to change the min length to 15 or leave your settings as is.
+#######################################################################
+
+checklength=$(grep -i minlen /etc/security/pwquality.conf | awk -F= '{print $2}')
+# This variable named checklength, checks to see what your minmumum required password length is.
+
+checklin=$(grep -n minlen /etc/security/pwquality.conf | cut -d ':' -f 1)
+# This variable finds what line number your minimum password length is found on in the pwquality.conf file. This is here so that later on when we us the SED command we can specify where to substitute di>
+
+if [[ "$checklength" -lt 15 ]]; then
+# if the minimum password length on your system is anything less than 15 you will then be prompted with an echo statment telling you so.
+    echo "Your password minimum length is not 15 which is not compliant"
+    read -p "Would you like to change the minimum password length to 15? (y/n): " confirm
+# The user is then prompted with the option to change the min password length or to keep the orignal one.
+
+    if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
+        if [[ -n "$checklength" ]]; then
+            sudo sed -i "${checklin}s/.*/minlen=15/" /etc/security/pwquality.conf
+        else
+            echo "minlen=15" | sudo tee -a /etc/security/pwquality.conf > /dev/null
+        fi
+# if the user chooses yes to changing the min password length the sed command will substitute whatever your orignal min password length is to 15 characters. Afterwards you will get a statement saying th>
+
+        echo "Your minimum password length has now changed to 15"
+    else
+        echo "Your minimum password has not been changed."
+    fi
+# if you choose not to change the passwrod length you will be told that nothing has been changed.
+else
+    echo "System has the minimum compliant password length of 15		GOOD"
+fi
+# If your minimum password length was already 15 or greater you will be told your password length is compliant.
+
+
+
+
